@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 
@@ -12,9 +12,9 @@ const App = () => {
 	const classes = useStyles()
 	const dispatch = useDispatch()
 
-	useEffect(()=> {
+	useEffect(() => {
 		dispatch(getPosts())
-	},[dispatch])
+	}, [dispatch])
 
 	return (
 		<Container maxWidth='lg'>
@@ -28,7 +28,7 @@ const App = () => {
 				<Container>
 					<Grid
 						container
-						justify='space-between'
+						justifyContent='space-between'
 						alignItems='stretch'
 						spacing={3}
 					>
