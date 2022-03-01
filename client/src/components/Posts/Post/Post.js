@@ -36,7 +36,7 @@ const Post = ({ post }) => {
 			</div>
 			<div className={classes.overlay2}>
 				<Button
-					style={{ color: 'black' }}
+					style={{ color: 'white' }}
 					size='small'
 					onClick={() => {}}
 				>
