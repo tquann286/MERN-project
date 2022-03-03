@@ -31,6 +31,11 @@ const Auth = () => {
 	const handleSubmit = (e) => {}
 	const handleChange = (e) => {}
 
+	const switchMode = () => {
+		setIsSignup(!isSignup)
+		setShowPassword(false)
+	}
+
 	return (
 		<Container component='main' maxWidth='xs'>
 			<Paper className={classes.paper} elevation={3}>
@@ -80,6 +85,24 @@ const Auth = () => {
 								type='password'
 							/>
 						)}
+					</Grid>
+					<Button
+						type='submit'
+						fullWidth
+						variant='contained'
+						color='primary'
+						className={classes.submit}
+					>
+						{isSignup ? 'Sign Up' : 'Sign In'}
+					</Button>
+					<Grid container justify='flex-end'>
+						<Grid item>
+							<Button onClick={switchMode}>
+								{isSignup
+									? 'Already have an account? Sign in'
+									: "Don't have an account? Sign Up"}
+							</Button>
+						</Grid>
 					</Grid>
 				</form>
 			</Paper>
