@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
 	Avatar,
 	Button,
@@ -12,10 +12,21 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import useStyles from './styles'
 import Input from './Input'
 
+const initialState = {
+	firstName: '',
+	lastName: '',
+	email: '',
+	password: '',
+	confirmPassword: '',
+}
+
 const Auth = () => {
 	const [form, setForm] = useState(initialState)
 	const [isSignup, setIsSignup] = useState(false)
 	const classes = useStyles()
+
+	const [showPassword, setShowPassword] = useState(false)
+	const handleShowPassword = () => setShowPassword(!showPassword)
 
 	const handleSubmit = (e) => {}
 	const handleChange = (e) => {}
@@ -47,6 +58,27 @@ const Auth = () => {
 									half
 								/>
 							</React.Fragment>
+						)}
+						<Input
+							name='email'
+							label='Email Address'
+							handleChange={handleChange}
+							type='email'
+						/>
+						<Input
+							name='password'
+							label='Password'
+							handleChange={handleChange}
+							type={showPassword ? 'text' : 'password'}
+							handleShowPassword={handleShowPassword}
+						/>
+						{isSignup && (
+							<Input
+								name='confirmPassword'
+								label='Repeat Password'
+								handleChange={handleChange}
+								type='password'
+							/>
 						)}
 					</Grid>
 				</form>
