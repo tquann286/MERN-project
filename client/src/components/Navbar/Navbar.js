@@ -10,17 +10,24 @@ import memories from '../../images/memories.png'
 
 const Navbar = () => {
 	const classes = useStyles()
+	const dispatch = useDispatch()
+  const location = useLocation();
+  const history = useHistory();
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
 
 	const logout = () => {
-		
+		dispatch({ type: 'LOGOUT' })
+
+		history.push('/auth')
+
+		setUser(null)
 	}
 
 	useEffect(() => {
 		const token = user?.token
 
 		setUser(JSON.parse(localStorage.getItem('profile')))
-	}, [])
+	}, [location])
 
 	return (
 		<AppBar className={classes.appBar} position='static' color='inherit'>
