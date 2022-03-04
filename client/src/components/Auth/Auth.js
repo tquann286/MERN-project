@@ -40,9 +40,9 @@ const Auth = () => {
 		e.preventDefault()
 
 		if (isSignup) {
-			dispatch(signup(form, history))
+			dispatch(signup(formData, history))
 		} else {
-			dispatch(signin(form, history))
+			dispatch(signin(formData, history))
 		}
 	}
 	const handleChange = (e) => {
