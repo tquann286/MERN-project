@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux'
 import {
 	Avatar,
 	Button,
@@ -9,11 +9,12 @@ import {
 	Container,
 } from '@material-ui/core'
 import { GoogleLogin } from 'react-google-login'
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 
 import Icon from './icon'
-import { AUTH } from '../../constants/actionTypes';
+import { AUTH } from '../../constants/actionTypes'
+import { signin, signup } from '../../actions/auth';
 import useStyles from './styles'
 import Input from './Input'
 
@@ -26,17 +27,27 @@ const initialState = {
 }
 
 const Auth = () => {
-	const [form, setForm] = useState(initialState)
+	const [formData, setFormData] = useState(initialState)
 	const [isSignup, setIsSignup] = useState(false)
-  const dispatch = useDispatch();
-  const history = useHistory();
+	const dispatch = useDispatch()
+	const history = useHistory()
 	const classes = useStyles()
 
 	const [showPassword, setShowPassword] = useState(false)
 	const handleShowPassword = () => setShowPassword(!showPassword)
 
-	const handleSubmit = (e) => {}
-	const handleChange = (e) => {}
+	const handleSubmit = (e) => {
+		e.preventDefault()
+
+		if (isSignup) {
+			dispatch(signup(form, history))
+		} else {
+			dispatch(signin(form, history))
+		}
+	}
+	const handleChange = (e) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value })
+	}
 
 	const switchMode = () => {
 		setIsSignup(!isSignup)
@@ -44,17 +55,17 @@ const Auth = () => {
 	}
 
 	const googleSuccess = async (res) => {
-    const result = res?.profileObj;
-    const token = res?.tokenId;
+		const result = res?.profileObj
+		const token = res?.tokenId
 
-    try {
-      dispatch({ type: AUTH, data: { result, token } });
+		try {
+			dispatch({ type: AUTH, data: { result, token } })
 
-      history.push('/');
-    } catch (error) {
-      console.log(error);
-    }
-  }
+			history.push('/')
+		} catch (error) {
+			console.log(error)
+		}
+	}
 
 	const googleError = () =>
 		alert('Google Sign In was unsuccessful. Try again later')
@@ -137,7 +148,7 @@ const Auth = () => {
 						onFailure={googleError}
 						cookiePolicy='single_host_origin'
 					/>
-					<Grid container justify='flex-end'>
+					<Grid container justifyContent='flex-end'>
 						<Grid item>
 							<Button onClick={switchMode}>
 								{isSignup
