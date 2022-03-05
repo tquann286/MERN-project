@@ -9,15 +9,22 @@ import {
 	Paper,
 } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
+import { useHistory, useLocation } from 'react-router-dom'
+import ChipInput from 'material-ui-chip-input'
 
 import { getPosts } from '../../actions/posts'
 import Posts from '../Posts/Posts'
 import Form from '../Form/Form'
 import Pagination from '../Pagination'
 
+function useQuery() {
+	return new URLSearchParams(useLocation().search)
+}
+
 const Home = () => {
 	const [currentId, setCurrentId] = useState(0)
 	const dispatch = useDispatch()
+  const query = useQuery();
 
 	useEffect(() => {
 		dispatch(getPosts())
@@ -37,7 +44,7 @@ const Home = () => {
 					</Grid>
 					<Grid item xs={12} sm={4}>
 						<Form currentId={currentId} setCurrentId={setCurrentId} />
-						<Paper  elevation={6}>
+						<Paper elevation={6}>
 							<Pagination />
 						</Paper>
 					</Grid>
