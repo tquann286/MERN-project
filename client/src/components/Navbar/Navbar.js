@@ -11,8 +11,8 @@ import memories from '../../images/memories.png'
 const Navbar = () => {
 	const classes = useStyles()
 	const dispatch = useDispatch()
-  const location = useLocation();
-  const history = useHistory();
+	const location = useLocation()
+	const history = useHistory()
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
 
 	const logout = () => {
@@ -25,6 +25,12 @@ const Navbar = () => {
 
 	useEffect(() => {
 		const token = user?.token
+
+		if (token) {
+			const decodedToken = decode(token)
+
+			if (decodedToken.exp * 1000 < new Date().getTime()) logout()
+		}
 
 		setUser(JSON.parse(localStorage.getItem('profile')))
 	}, [location])
