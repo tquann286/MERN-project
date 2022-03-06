@@ -43,6 +43,7 @@ const Home = () => {
 
 	const searchPost = () => {
 		if (search.trim() || tags) {
+			dispatch(getPostsBySearch({ search, tags: tags.join(',') }))
 		} else {
 			history.push('/')
 		}
